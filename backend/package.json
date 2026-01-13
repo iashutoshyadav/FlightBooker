@@ -4,17 +4,24 @@
   "description": "Flight Booking System Backend API",
   "type": "module",
   "main": "src/server.js",
-"scripts": {
-  "dev": "nodemon src/server.js",
-  "start": "node src/server.js",
-  "build": "prisma generate && prisma migrate deploy && prisma db seed",
-  "prisma:migrate": "prisma migrate deploy",
-  "prisma:seed": "node prisma/seed.js",
-  "prisma:studio": "prisma studio"
-},
+
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "prisma generate && prisma migrate deploy && prisma db seed",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:seed": "node prisma/seed.js",
+    "prisma:studio": "prisma studio"
+  },
+
   "keywords": ["flight", "booking", "api", "express", "prisma", "postgresql"],
   "author": "Your Name",
   "license": "MIT",
+
   "dependencies": {
     "express": "^4.18.2",
     "@prisma/client": "^5.7.1",
@@ -26,6 +33,7 @@
     "express-validator": "^7.0.1",
     "express-rate-limit": "^7.1.5"
   },
+
   "devDependencies": {
     "nodemon": "^3.0.2",
     "prisma": "^5.7.1"
