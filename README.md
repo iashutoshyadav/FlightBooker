@@ -1,8 +1,29 @@
-✈️ Flight Booking System (Full-Stack)
+✈️ FlightBooker — Full-Stack Flight Booking System
 
-A full-stack Flight Booking System built with React (Vite), Node.js + Express, Prisma, and PostgreSQL, featuring authentication, flight search, dynamic pricing, and bookings.
+FlightBooker is a production-ready full-stack flight booking platform built to demonstrate real-world backend engineering, database design, and deployment practices.
+The project supports user authentication, flight search, filtering, dynamic pricing, and bookings with a modern frontend and scalable backend.
 
-🧱 Tech Stack
+🔗 Live Demo
+
+Frontend: https://flight-booker-gamma.vercel.app
+
+Backend: https://flightbooker-5bzt.onrender.com
+
+🚀 Key Highlights
+
+✅ End-to-end full-stack application
+
+✅ Production deployment (Render + Vercel)
+
+✅ Prisma ORM with PostgreSQL
+
+✅ JWT-based authentication
+
+✅ Database migrations & seeding
+
+✅ Proper environment separation (local vs production)
+
+🧰 Tech Stack
 Frontend
 
 React (Vite)
@@ -27,33 +48,8 @@ JWT Authentication
 
 Deployed on Render
 
-📂 Project Structure
-FlightBooker/
-├── backend/
-│   ├── prisma/
-│   │   ├── migrations/
-│   │   ├── schema.prisma
-│   │   └── seed.js
-│   ├── src/
-│   │   ├── config/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   ├── utils/
-│   │   ├── app.js
-│   │   └── server.js
-│   ├── package.json
-│   └── .env.example
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── .env.example
-│
-└── README.md
-
 ⚙️ Environment Variables
-Backend .env (Local)
+Backend (backend/.env – local)
 NODE_ENV=development
 PORT=5000
 
@@ -69,12 +65,12 @@ SURGE_RESET_MINUTES=10
 
 CORS_ORIGIN=http://localhost:5173
 
-Frontend .env (Local)
+Frontend (frontend/.env – local)
 VITE_API_URL=http://localhost:5000/api
-VITE_APP_NAME=Flight Booking System
+VITE_APP_NAME=FlightBooker
 
-🚀 Run Project Locally
-1️⃣ Clone Repository
+🖥️ Running the Project Locally
+1️⃣ Clone the Repository
 git clone https://github.com/iashutoshyadav/FlightBooker.git
 cd FlightBooker
 
@@ -82,13 +78,13 @@ cd FlightBooker
 cd backend
 npm install
 
-Setup Database
+Database Setup
 
-Create PostgreSQL database
+Create a PostgreSQL database
 
 Update DATABASE_URL in .env
 
-Run Prisma
+Prisma Setup
 npx prisma generate
 npx prisma migrate dev
 npx prisma db seed
@@ -97,9 +93,8 @@ Start Backend
 npm run dev
 
 
-Backend runs at:
-
-http://localhost:5000
+Backend will run on:
+👉 http://localhost:5000
 
 3️⃣ Frontend Setup
 cd ../frontend
@@ -107,11 +102,10 @@ npm install
 npm run dev
 
 
-Frontend runs at:
+Frontend will run on:
+👉 http://localhost:5173
 
-http://localhost:5173
-
-🌐 Production Deployment
+🌍 Production Deployment
 Backend (Render)
 
 Build Command
@@ -137,45 +131,52 @@ Frontend (Vercel)
 Environment Variables
 
 VITE_API_URL=https://flightbooker-5bzt.onrender.com/api
-VITE_APP_NAME=Flight Booking System
+VITE_APP_NAME=FlightBooker
 
-🔗 Live URLs
+🔗 Live Endpoints
 
-Frontend: https://flight-booker-gamma.vercel.app
+Frontend UI
+👉 https://flight-booker-gamma.vercel.app
 
-Backend: https://flightbooker-5bzt.onrender.com
+Backend API
+👉 https://flightbooker-5bzt.onrender.com
 
-Health Check: https://flightbooker-5bzt.onrender.com/api/health
+Health Check
+👉 https://flightbooker-5bzt.onrender.com/api/health
 
-✅ Features
+✨ Features
 
-User Registration & Login (JWT)
+User Registration & Login
+
+JWT-based Authentication
 
 Flight Search (From → To)
 
-Filters (Airline, Price)
+Airline & Price Filters
 
-Dynamic Pricing (Surge logic)
+Dynamic Pricing (Surge Logic)
 
 Flight Booking
 
-Wallet Balance
+Wallet System
 
-Production-ready backend
+Production-ready error handling
 
 Secure environment configuration
 
-🧠 Notes
+🧠 Engineering Notes
 
-Prisma migrations are run automatically in production.
+Prisma migrations are used for schema management.
 
-Flight data is seeded once using prisma db seed.
+Production database is seeded once using prisma db seed.
 
-.env files are never committed.
+Backend strictly binds to process.env.PORT (cloud-safe).
 
-Uses process.env.PORT for cloud compatibility.
+.env files are excluded from version control.
 
-📌 Author
+Designed following real-world backend deployment practices.
+
+👨‍💻 Author
 
 Ashutosh Yadav
-Full-Stack Developer
+Final-year B.Tech | Full-Stack Developer
