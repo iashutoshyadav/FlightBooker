@@ -1,10 +1,6 @@
 import flightService from "../services/flightService.js";
 import pricingService from "../services/pricingService.js";
 
-/**
- * 🔍 SEARCH FLIGHTS
- * GET /api/flights/search
- */
 export const searchFlights = async (req, res, next) => {
   try {
     const departureCity = req.query.departureCity?.trim();
@@ -16,19 +12,16 @@ export const searchFlights = async (req, res, next) => {
         message: "Departure city and arrival city are required",
       });
     }
-
     if (departureCity.toLowerCase() === arrivalCity.toLowerCase()) {
       return res.status(400).json({
         success: false,
         message: "Departure and arrival city cannot be the same",
       });
     }
-
     const flights = await flightService.searchFlights({
       departureCity,
       arrivalCity,
     });
-
     if (!flights || flights.length === 0) {
       return res.status(200).json({
         success: true,
@@ -37,15 +30,12 @@ export const searchFlights = async (req, res, next) => {
         message: "No flights found matching your criteria",
       });
     }
-
-    // Apply dynamic pricing
     const flightsWithPricing = await Promise.all(
       flights.map(async (flight) => {
         const pricing = await pricingService.calculatePrice(
           req.user.id,
           flight.id
         );
-
         return {
           ...flight,
           currentPrice: pricing.finalPrice,
@@ -54,7 +44,6 @@ export const searchFlights = async (req, res, next) => {
         };
       })
     );
-
     res.status(200).json({
       success: true,
       count: flightsWithPricing.length,
@@ -64,11 +53,9 @@ export const searchFlights = async (req, res, next) => {
     next(error);
   }
 };
-
 export const getFlightById = async (req, res, next) => {
   try {
     const flightId = req.params.flightId?.trim();
-
     if (!flightId) {
       return res.status(400).json({
         success: false,
@@ -77,7 +64,6 @@ export const getFlightById = async (req, res, next) => {
     }
 
     const flight = await flightService.getFlightById(flightId);
-
     res.status(200).json({
       success: true,
       data: flight,
@@ -93,10 +79,6 @@ export const getFlightById = async (req, res, next) => {
   }
 };
 
-/**
- * 💰 GET FLIGHT PRICE (SURGE + BASE)
- * GET /api/flights/:flightId/price
- */
 export const getFlightPrice = async (req, res, next) => {
   try {
     const flightId = req.params.flightId?.trim();
@@ -107,14 +89,8 @@ export const getFlightPrice = async (req, res, next) => {
         message: "Valid flight ID is required",
       });
     }
-
-    // Ensure flight exists
     await flightService.getFlightById(flightId);
-
-    // Record booking attempt
     await pricingService.recordAttempt(req.user.id, flightId);
-
-    // Calculate dynamic pricing
     const pricing = await pricingService.calculatePrice(
       req.user.id,
       flightId

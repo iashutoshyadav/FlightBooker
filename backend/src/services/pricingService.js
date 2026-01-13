@@ -7,15 +7,12 @@ export class PricingService {
       where: { id: flightId },
       select: { basePrice: true },
     });
-
     if (!flight) {
       throw new Error('Flight not found');
     }
 
     const basePrice = parseFloat(flight.basePrice.toString());
-
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-    
     const recentAttempts = await prisma.bookingAttempt.count({
       where: {
         userId,
@@ -46,7 +43,6 @@ export class PricingService {
       surgeApplied = true;
       finalPrice = basePrice * (1 + surgePercentage / 100);
     }
-
     return {
       basePrice,
       finalPrice: Math.round(finalPrice * 100) / 100,
@@ -67,7 +63,6 @@ export class PricingService {
 
   async cleanupOldAttempts() {
     const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
-    
     const result = await prisma.bookingAttempt.deleteMany({
       where: {
         attemptedAt: {

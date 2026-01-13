@@ -6,21 +6,16 @@ export class WalletService {
       where: { id: userId },
       select: { walletBalance: true },
     });
-
     if (!user) {
       throw new Error('User not found');
     }
-
     return parseFloat(user.walletBalance.toString());
   }
-
   async deductAmount(userId, amount, description, bookingId = null) {
     const currentBalance = await this.getBalance(userId);
-
     if (currentBalance < amount) {
       throw new Error(`Insufficient balance. Required: ₹${amount}, Available: ₹${currentBalance}`);
     }
-
     const [updatedUser, transaction] = await prisma.$transaction([
       prisma.user.update({
         where: { id: userId },
@@ -46,7 +41,6 @@ export class WalletService {
       transaction,
     };
   }
-
   async addAmount(userId, amount, description) {
     const [updatedUser, transaction] = await prisma.$transaction([
       prisma.user.update({
@@ -72,7 +66,6 @@ export class WalletService {
       transaction,
     };
   }
-
   async getTransactionHistory(userId) {
     const transactions = await prisma.transaction.findMany({
       where: { userId },

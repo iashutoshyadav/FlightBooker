@@ -23,20 +23,16 @@ class BookingService {
       select: { walletBalance: true },
     });
     if (!user) throw new Error("User not found");
-
     const flight = await prisma.flight.findUnique({
       where: { id: flightId },
     });
     if (!flight) throw new Error("Flight not found");
-
     const finalPrice = Number(pricing.finalPrice);
     if (Number(user.walletBalance) < finalPrice) {
       throw new Error(`Insufficient balance. Required ₹${finalPrice}`);
     }
 
     const pnr = await this.generateUniquePNR();
-
-    // ✅ TRANSACTION
     const booking = await prisma.$transaction(async (tx) => {
       await tx.user.update({
         where: { id: userId },
@@ -65,9 +61,7 @@ class BookingService {
       return newBooking;
     });
 
-    // ✅ PDF GENERATION NEEDS user.email
     const pdfPath = await pdfService.generateTicket(booking);
-
     return prisma.booking.update({
       where: { id: booking.id },
       data: { pdfPath },

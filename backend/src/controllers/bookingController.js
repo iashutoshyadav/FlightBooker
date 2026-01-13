@@ -26,8 +26,8 @@ export const createBooking = async (req, res, next) => {
     }
 
     const booking = await bookingService.createBooking({
-      userId: req.user.id,   // ✅ FIXED
-      flightId,              // ✅ FIXED
+      userId: req.user.id,
+      flightId,
       passengerName,
     });
 
@@ -47,7 +47,6 @@ export const createBooking = async (req, res, next) => {
   }
 };
 
-// ✅ GET BOOKING HISTORY
 export const getBookingHistory = async (req, res, next) => {
   try {
     const bookings = await bookingService.getBookingHistory(req.user.id);
@@ -61,11 +60,9 @@ export const getBookingHistory = async (req, res, next) => {
   }
 };
 
-// ✅ GET BOOKING BY PNR
 export const getBookingByPNR = async (req, res, next) => {
   try {
     const { pnr } = req.params;
-
     if (!pnr) {
       return res.status(400).json({
         success: false,
@@ -74,7 +71,6 @@ export const getBookingByPNR = async (req, res, next) => {
     }
 
     const booking = await bookingService.getBookingByPNR(pnr, req.user.id);
-
     res.status(200).json({
       success: true,
       data: booking,
@@ -84,11 +80,9 @@ export const getBookingByPNR = async (req, res, next) => {
   }
 };
 
-// ✅ DOWNLOAD TICKET PDF
 export const downloadTicket = async (req, res, next) => {
   try {
     const { pnr } = req.params;
-
     const booking = await bookingService.getBookingByPNR(
       pnr,
       req.user.id
