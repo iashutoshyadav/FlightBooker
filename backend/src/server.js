@@ -3,7 +3,7 @@ import config from './config/environment.js';
 import prisma from './config/database.js';
 import logger from './utils/logger.js';
 
-const PORT = config.port;
+const PORT = process.env.PORT || config.port || 10000;
 
 const server = app.listen(PORT, async () => {
   logger.info(`Server running in ${config.nodeEnv} mode on port ${PORT}`);
@@ -29,7 +29,7 @@ const gracefulShutdown = async (signal) => {
       process.exit(1);
     }
   });
-  
+
   setTimeout(() => {
     logger.error('Forced shutdown after timeout');
     process.exit(1);
