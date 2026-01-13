@@ -16,14 +16,13 @@ export const flightService = {
     return response.data;
   },
 
-  // ✅ ADD THIS
   getFlightById: async (flightId, token) => {
     const response = await api.get(`/flights/${flightId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.data; // IMPORTANT
+    return response.data.data;
   },
 };
 

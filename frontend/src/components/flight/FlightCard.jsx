@@ -10,12 +10,10 @@ const FlightCard = ({ flight }) => {
   const navigate = useNavigate();
 
   const handleBookNow = () => {
-    // Use flight.id (not flightId which is the flight number like AI202)
     navigate(`/booking/${flight.id}`, { state: { flight } });
   };
 
   const isSurge = flight.surgeApplied || flight.currentPrice > flight.basePrice;
-
   return (
     <Card hover className="animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

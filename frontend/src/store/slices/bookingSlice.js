@@ -8,8 +8,6 @@ const initialState = {
   error: null,
 };
 
-// ================== THUNKS ==================
-
 // CREATE BOOKING
 export const createBooking = createAsyncThunk(
   "bookings/create",
@@ -30,7 +28,6 @@ export const fetchBookingHistory = createAsyncThunk(
   "bookings/fetchHistory",
   async (token, { rejectWithValue }) => {
     try {
-      // returns { success, count, data }
       return await bookingService.getBookingHistory(token);
     } catch (error) {
       return rejectWithValue(
@@ -45,7 +42,6 @@ export const fetchBookingByPNR = createAsyncThunk(
   "bookings/fetchByPNR",
   async (pnr, { rejectWithValue }) => {
     try {
-      // returns { success, data }
       return await bookingService.getBookingByPNR(pnr);
     } catch (error) {
       return rejectWithValue(
@@ -54,8 +50,6 @@ export const fetchBookingByPNR = createAsyncThunk(
     }
   }
 );
-
-// ================== SLICE ==================
 
 const bookingSlice = createSlice({
   name: "bookings",
@@ -70,7 +64,6 @@ const bookingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // CREATE BOOKING
       .addCase(createBooking.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -85,21 +78,19 @@ const bookingSlice = createSlice({
         state.error = action.payload;
       })
 
-      // FETCH HISTORY
       .addCase(fetchBookingHistory.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchBookingHistory.fulfilled, (state, action) => {
         state.loading = false;
-        state.bookings = action.payload.data; // ✅ ARRAY
+        state.bookings = action.payload.data;
       })
       .addCase(fetchBookingHistory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
 
-      // FETCH BY PNR
       .addCase(fetchBookingByPNR.pending, (state) => {
         state.loading = true;
         state.error = null;
