@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String
+  walletBalance Decimal   @default(50000) @db.Decimal(10, 2)
+  
+  bookings      Booking[]
+  attempts      BookingAttempt[]
+  transactions  Transaction[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([email])
+}
+
+model Flight {
+  id             String    @id @default(uuid())
+  flightId       String    @unique
+  airline        String
+  departureCity  String
+  arrivalCity    String
+  departureTime  DateTime
+  arrivalTime    DateTime
+  basePrice      Decimal   @db.Decimal(10, 2)
+  
+  bookings       Booking[]
+  attempts       BookingAttempt[]
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  
+  @@index([departureCity, arrivalCity])
+  @@index([flightId])
+}
+
+model Booking {
+  id            String    @id @default(uuid())
+  pnr           String    @unique
+  
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  flightId      String
+  flight        Flight    @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  
+  passengerName String
+  finalPrice    Decimal   @db.Decimal(10, 2)
+  pdfPath       String?
+  
+  bookingDate   DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  
+  @@index([userId])
+  @@index([pnr])
+}
+
+model BookingAttempt {
+  id          String    @id @default(uuid())
+  
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  flightId    String
+  flight      Flight    @relation(fields: [flightId], references: [id], onDelete: Cascade)
+  
+  attemptedAt DateTime  @default(now())
+  
+  @@index([userId, flightId, attemptedAt])
+  @@index([attemptedAt])
+}
+
+model Transaction {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount      Decimal   @db.Decimal(10, 2)
+  type        String
+  description String
+  bookingId   String?
+  
+  createdAt   DateTime  @default(now())
+  
+  @@index([userId])
+}
