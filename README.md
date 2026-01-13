@@ -1,4 +1,4 @@
- Flight Booking System (Full-Stack)
+✈️ Flight Booking System (Full-Stack)
 
 A full-stack Flight Booking System built with React (Vite), Node.js + Express, Prisma, and PostgreSQL, featuring authentication, flight search, dynamic pricing, and bookings.
 
@@ -27,7 +27,7 @@ JWT Authentication
 
 Deployed on Render
 
-Project Structure
+📂 Project Structure
 FlightBooker/
 ├── backend/
 │   ├── prisma/
@@ -52,7 +52,7 @@ FlightBooker/
 │
 └── README.md
 
- Environment Variables
+⚙️ Environment Variables
 Backend .env (Local)
 NODE_ENV=development
 PORT=5000
@@ -73,12 +73,12 @@ Frontend .env (Local)
 VITE_API_URL=http://localhost:5000/api
 VITE_APP_NAME=Flight Booking System
 
-Run Project Locally
-1️ Clone Repository
+🚀 Run Project Locally
+1️⃣ Clone Repository
 git clone https://github.com/iashutoshyadav/FlightBooker.git
 cd FlightBooker
 
-2️ Backend Setup
+2️⃣ Backend Setup
 cd backend
 npm install
 
@@ -101,7 +101,7 @@ Backend runs at:
 
 http://localhost:5000
 
-3️ Frontend Setup
+3️⃣ Frontend Setup
 cd ../frontend
 npm install
 npm run dev
@@ -111,7 +111,7 @@ Frontend runs at:
 
 http://localhost:5173
 
-🌐Production Deployment
+🌐 Production Deployment
 Backend (Render)
 
 Build Command
@@ -147,7 +147,7 @@ Backend: https://flightbooker-5bzt.onrender.com
 
 Health Check: https://flightbooker-5bzt.onrender.com/api/health
 
- Features
+✅ Features
 
 User Registration & Login (JWT)
 
@@ -165,7 +165,7 @@ Production-ready backend
 
 Secure environment configuration
 
- Notes
+🧠 Notes
 
 Prisma migrations are run automatically in production.
 
